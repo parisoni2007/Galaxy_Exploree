@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Planet Matching Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .card {
+      width: 100px;
+      height: 100px;
+      background-color: #333;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      color: white;
+    }
+    .matched {
+      background-color: #2ecc71;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #6a00e0;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>🪐 Planet Matching Game</h1>
+  <p>Match the planet names with their images!</p>
+
+  <div class="game-grid" id="gameGrid"></div>
+
+  <button onclick="location.href='index.html'">🔙 Back to Galaxy</button>
+
+  <script src="planet-matching.js"></script>
+</body>
+</html>

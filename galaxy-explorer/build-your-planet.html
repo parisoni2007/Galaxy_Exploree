@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Build Your Planet</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: radial-gradient(ellipse at bottom, #000 0%, #050d1d 100%);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #planetCanvas {
+      background: #111;
+      border: 2px solid #444;
+      border-radius: 50%;
+      margin: 20px auto;
+      display: block;
+      box-shadow: 0 0 15px #00f0ff;
+    }
+
+    .controls {
+      margin-top: 20px;
+    }
+
+    label, input, select {
+      margin: 10px;
+      color: #fff;
+    }
+
+    input[type="color"] {
+      border: none;
+      width: 40px;
+      height: 30px;
+      cursor: pointer;
+      vertical-align: middle;
+    }
+
+    button {
+      background: #00f0ff;
+      border: none;
+      padding: 10px 20px;
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background: #00c4cc;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #00f0ff;
+      text-decoration: none;
+      border: 1px solid #00f0ff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-link:hover {
+      background-color: #00f0ff;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>🪐 Build Your Planet</h1>
+  <canvas id="planetCanvas" width="300" height="300"></canvas>
+
+  <div class="controls">
+    <label>Color: <input type="color" id="planetColor" value="#34ebcc" /></label>
+    <label>Size: 
+      <select id="planetSize">
+        <option value="50">Small</option>
+        <option value="75" selected>Medium</option>
+        <option value="100">Large</option>
+      </select>
+    </label>
+    <label>
+      Rings: 
+      <input type="checkbox" id="planetRings" />
+    </label>
+    <label>
+      Atmosphere:
+      <select id="atmosphere">
+        <option value="none">None</option>
+        <option value="thin">Thin</option>
+        <option value="thick">Thick</option>
+      </select>
+    </label>
+    <br />
+    <button id="updateBtn">Update Planet</button>
+    <button id="downloadBtn">Download Planet</button>
+  </div>
+
+  <a href="index.html" class="back-link">🔙 Back to Home</a>
+
+  <script>
+    const canvas = document.getElementById("planetCanvas");
+    const ctx = canvas.getContext("2d");
+
+    let rotation = 0;
+
+    function drawPlanet() {
+      const color = document.getElementById("planetColor").value;
+      const size = parseInt(document.getElementById("planetSize").value);
+      const hasRings = document.getElementById("planetRings").checked;
+      const atmosphere = document.getElementById("atmosphere").value;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+
+      // Move origin to center for rotation
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate(rotation);
+
+      // Draw atmosphere
+      if (atmosphere !== "none") {
+        ctx.beginPath();
+        ctx.arc(0, 0, size + (atmosphere === "thin" ? 10 : 20), 0, Math.PI * 2);
+        ctx.fillStyle = atmosphere === "thin" ? "rgba(135,206,235,0.3)" : "rgba(135,206,250,0.5)";
+        ctx.fill();
+      }
+
+      // Draw planet
+      ctx.beginPath();
+      ctx.arc(0, 0, size, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+
+      // Draw rings
+      if (hasRings) {
+        ctx.beginPath();
+        ctx.ellipse(0, 0, size + 15, size / 2, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = "#ccc";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    }
+
+    function animate() {
+      rotation += 0.01;
+      drawPlanet();
+      requestAnimationFrame(animate);
+    }
+
+    // Initial draw and start animation
+    animate();
+
+    // Update button redraws planet immediately without resetting animation
+    document.getElementById("updateBtn").addEventListener("click", drawPlanet);
+
+    // Download canvas as image
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+      const link = document.createElement('a');
+      link.download = 'my_custom_planet.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  </script>
+</body>
+</html>

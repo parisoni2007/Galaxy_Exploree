@@ -1,0 +1,96 @@
+body {
+  background: radial-gradient(ellipse at center, #000022 0%, #000000 100%);
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  padding: 2rem;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.alien-creator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.alien-preview {
+  position: relative;
+  width: 150px;
+  height: 250px;
+  margin-bottom: 20px;
+  animation: float 2s infinite ease-in-out;
+}
+
+.alien-head,
+.alien-eyes,
+.alien-body,
+.alien-accessory {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.alien-head {
+  top: 0;
+  width: 80px;
+  height: 80px;
+  background: #44ffcc;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.alien-eyes {
+  top: 25px;
+  width: 40px;
+  height: 20px;
+  background: white;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+
+.alien-body {
+  top: 90px;
+  width: 60px;
+  height: 100px;
+  background: #00ffcc;
+  border-radius: 30px;
+  transition: background 0.3s;
+}
+
+.alien-accessory {
+  top: 60px;
+  width: 60px;
+  height: 30px;
+  transition: all 0.3s;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 250px;
+  margin: 0 auto;
+}
+
+button {
+  background: lime;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00cc99;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(-50%, 0); }
+  50% { transform: translate(-50%, -10px); }
+}

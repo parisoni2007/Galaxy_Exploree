@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guess the Planet</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: radial-gradient(circle at top, #000015 0%, #000000 100%);
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    .planet-img {
+      width: 200px;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      border-radius: 50%;
+      background: #111;
+      box-shadow: 0 0 20px #6a00e0;
+    }
+
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .option-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #4b00b5;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .option-btn:hover {
+      background: #6a00e0;
+    }
+
+    .result {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    .next-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #00cfff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🧠 Guess the Planet</h1>
+  <p>Can you identify the planet just by its picture?</p>
+
+  <img id="planetImage" class="planet-img" src="" alt="Planet" />
+  <div class="options" id="optionsContainer"></div>
+  <div class="result" id="resultText"></div>
+  <button class="next-btn" id="nextBtn">Next Planet</button>
+
+  <script>
+    const planets = [
+      { name: "Mercury", image: "mercury.png" },
+      { name: "Venus", image: "venus.png" },
+      { name: "Earth", image: "earth.png" },
+      { name: "Mars", image: "mars.png" },
+      { name: "Jupiter", image: "jupiter.png" },
+      { name: "Saturn", image: "saturn.png" },
+      { name: "Uranus", image: "uranus.png" },
+      { name: "Neptune", image: "neptune.png" }
+    ];
+
+    const planetImage = document.getElementById('planetImage');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const resultText = document.getElementById('resultText');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentPlanet = null;
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function loadPlanet() {
+      resultText.textContent = '';
+      nextBtn.style.display = 'none';
+      optionsContainer.innerHTML = '';
+
+      currentPlanet = planets[Math.floor(Math.random() * planets.length)];
+      planetImage.src = currentPlanet.image;
+
+      const options = shuffle([currentPlanet.name, ...planets.filter(p => p.name !== currentPlanet.name).map(p => p.name).slice(0, 3)]);
+      shuffle(options).forEach(option => {
+        const btn = document.createElement('button');
+        btn.classList.add('option-btn');
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(option);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected) {
+      if (selected === currentPlanet.name) {
+        resultText.textContent = "✅ Correct!";
+        resultText.style.color = "#00ff88";
+      } else {
+        resultText.textContent = `❌ Wrong! That was ${currentPlanet.name}`;
+        resultText.style.color = "#ff4444";
+      }
+      nextBtn.style.display = 'inline-block';
+    }
+
+    nextBtn.addEventListener('click', loadPlanet);
+
+    loadPlanet();
+  </script>
+</body>
+</html>

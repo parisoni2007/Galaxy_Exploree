@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Your Alien</title>
+  <link rel="stylesheet" href="alien-style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1 class="title">👽 Create Your Alien</h1>
+
+  <div class="alien-creator">
+    <div class="alien-preview" id="alienPreview">
+      <div class="alien-head"></div>
+      <div class="alien-eyes"></div>
+      <div class="alien-body"></div>
+      <div class="alien-accessory"></div>
+    </div>
+
+    <div class="controls">
+      <label>Head Shape:
+        <select id="headSelect">
+          <option value="round">Round</option>
+          <option value="triangular">Triangular</option>
+          <option value="antenna">With Antenna</option>
+        </select>
+      </label>
+
+      <label>Eye Style:
+        <select id="eyeSelect">
+          <option value="big">Big</option>
+          <option value="tiny">Tiny</option>
+          <option value="glowing">Glowing</option>
+        </select>
+      </label>
+
+      <label>Body Color:
+        <input type="color" id="colorPicker" value="#00ffcc">
+      </label>
+
+      <label>Accessory:
+        <select id="accessorySelect">
+          <option value="none">None</option>
+          <option value="hat">Hat</option>
+          <option value="glasses">Glasses</option>
+          <option value="cape">Cape</option>
+        </select>
+      </label>
+
+      <button id="downloadAlien">📸 Save Alien</button>
+    </div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="assets/alien-theme.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="alien-script.js"></script>
+</body>
+</html>
